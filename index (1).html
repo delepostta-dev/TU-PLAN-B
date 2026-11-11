@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Tu Plan B · Método HYB</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--font:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;--y:#EEB625;--k:#111111;--bg:#FFFFFF;--fg:#111111;--mut:#6b6b6b;--line:#e3e3e0;--soft:#f5f5f3;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111111;--fg:#FFFFFF;--mut:#a8a8a8;--line:#2f2f2f;--soft:#1b1b1b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111111;--fg:#FFFFFF;--mut:#a8a8a8;--line:#2f2f2f;--soft:#1b1b1b;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:16px;line-height:1.5}
+main{max-width:720px;margin:0 auto;padding:20px 18px 60px}
+h1{font-size:clamp(44px,12vw,76px);font-weight:800;letter-spacing:-.03em;line-height:.95;margin:28px 0 14px}h1 em{font-style:normal;color:var(--y)}
+h2{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:10px 0 6px}h3{font-size:15px;font-weight:800;margin:18px 0 6px;text-transform:uppercase;letter-spacing:.06em}
+.sub{font-size:19px;font-weight:600;margin:0 0 14px}.m{color:var(--mut);margin:0 0 14px}.brand{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.brand i{display:inline-block;width:10px;height:10px;background:var(--y);margin-right:8px}
+button{font:inherit;cursor:pointer}.btn{background:var(--y);color:var(--k);border:0;font-weight:800;padding:15px 22px;border-radius:10px;letter-spacing:.03em}
+.ghost{background:none;color:var(--fg);border:1.5px solid var(--line);font-weight:600;padding:11px 16px;border-radius:10px}
+.pill{min-width:46px;padding:10px 14px;border-radius:999px;border:1.5px solid var(--line);background:none;color:var(--fg);font-weight:600}
+.pill.on{background:var(--y);border-color:var(--y);color:var(--k);font-weight:800}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.nav{display:flex;justify-content:space-between;gap:10px;margin-top:26px}
+.bar{height:5px;background:var(--line);border-radius:5px;margin:6px 0 22px}.bar b{display:block;height:100%;background:var(--y);border-radius:5px}
+.pl{font-size:12px;color:var(--mut);font-weight:600;margin-top:14px}
+.card{border:1.5px solid var(--line);border-radius:14px;padding:14px;margin:14px 0}.hd{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.ic{background:none;border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:5px 9px;font-size:13px;margin-left:4px}
+input,select{font:inherit;width:100%;padding:11px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--fg)}
+input:focus,select:focus{outline:2px solid var(--y);border-color:var(--y)}
+.l{font-weight:800;display:block;margin:16px 0 4px}.sm{font-size:13px;color:var(--mut);margin:12px 0 4px;font-weight:600}
+.chip{padding:6px 12px;border-radius:999px;border:1.5px solid var(--line);background:none;color:var(--fg);font-size:14px}.chip.on{background:var(--k);color:#fff;border-color:var(--y)}
+.ex{display:grid;grid-template-columns:1fr 70px auto;gap:6px;margin:6px 0}
+.opt{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:none;color:var(--fg);padding:14px;border-radius:12px;margin:8px 0}
+.opt.on{border-color:var(--y);box-shadow:inset 4px 0 0 var(--y)}.opt b{display:block}.opt span{color:var(--mut);font-size:14px}
+.err{background:var(--y);color:var(--k);padding:10px 14px;border-radius:10px;font-weight:600;margin-top:14px}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin:6px 0 14px}.wk div{height:34px;border-radius:7px;border:1.5px solid var(--line)}.wk .a{background:var(--y);border-color:var(--y)}
+#res{background:var(--bg);padding:20px 16px;border-radius:12px}
+.box{border-left:5px solid var(--y);padding:4px 0 4px 14px;margin:10px 0}.box b{display:block}
+.day{background:var(--soft);border-radius:12px;padding:12px 14px;margin:8px 0}.day b{font-size:15px}.day ul{margin:6px 0 0;padding-left:18px}
+.tag{display:inline-block;background:var(--y);color:var(--k);font-weight:800;font-size:11px;padding:2px 8px;border-radius:6px;letter-spacing:.05em}
+.foot{font-size:12px;color:var(--mut);margin-top:18px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.st{background:var(--soft);border-radius:12px;padding:12px 6px;text-align:center}.st b{display:block;font-size:26px;font-weight:800;line-height:1.1}.st span{font-size:12px;color:var(--mut);font-weight:600}
+.sec{display:flex;align-items:center;gap:10px;margin:28px 0 10px}.sec i{font-style:normal;background:var(--y);color:var(--k);font-weight:800;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:14px;flex:none}.sec h3{margin:0}
+.pr{display:flex;flex-direction:column;gap:6px;padding:10px 0;border-bottom:1px solid var(--line)}
+.tags{display:flex;flex-wrap:wrap;gap:5px}.tg{background:var(--soft);border-radius:6px;padding:3px 8px;font-size:12px;font-weight:600}.tg.y{background:var(--y);color:var(--k)}
+.sc{border:1.5px solid var(--line);border-radius:14px;margin:10px 0;overflow:hidden}.sc.hl{border-color:var(--y)}
+.si{background:var(--fg);color:var(--bg);padding:10px 14px;font-weight:800;display:flex;gap:10px;align-items:center}.si em{font-style:normal;background:var(--y);color:var(--k);border-radius:6px;padding:1px 8px;font-size:11px;letter-spacing:.06em}
+.th{padding:10px 14px}.th ol{margin:0;padding:0;list-style:none;counter-reset:s}.th li{counter-increment:s;display:flex;gap:10px;margin:8px 0;font-size:15px}.th li:before{content:counter(s);flex:none;width:22px;height:22px;border-radius:50%;background:var(--y);color:var(--k);font-weight:800;font-size:12px;display:grid;place-items:center}
+.wv{border:1.5px solid var(--line);border-radius:14px;padding:14px;margin:18px 0 22px}.wh,.wr{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.wh span{font-size:11px;font-weight:800;color:var(--mut);text-align:center}
+.wr div{height:38px;border-radius:8px;border:1.5px dashed var(--line);display:grid;place-items:center;font-size:12px;font-weight:800}.wr .a{background:var(--y);border:1.5px solid var(--y);color:var(--k)}.wr .x{border:1.5px solid var(--fg);color:var(--mut);text-decoration:line-through}.wr .k{background:var(--fg);color:var(--bg);border:1.5px solid var(--fg)}
+.cap{display:flex;align-items:center;gap:8px;margin:16px 0 6px;font-size:14px;font-weight:800}.cap .n{flex:none;width:22px;height:22px;border-radius:50%;background:var(--y);color:var(--k);font-size:12px;display:grid;place-items:center}
+</style></head><body><main id="app"></main>
+<script>
+const DN=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+const GR=['Pecho','Espalda','Hombros','Bíceps','Tríceps','Cuádriceps','Isquios','Glúteos','Gemelos','Abdomen','Piernas','Torso'];
+const OB={masa:{t:'Ganar masa muscular',d:'Priorizar volumen útil en cada grupo muscular.',dose:'2–3 series cerca del fallo técnico (RIR 0–2)',back:'Volvé a tu rutina completa con tus cargas habituales. No compenses con series extra: el volumen se recupera a lo largo de la semana, no en un solo día.'},
+fuerza:{t:'Ganar fuerza',d:'Priorizar los ejercicios principales con cargas altas.',dose:'3 series pesadas (RIR 1–3) y descansos completos',back:'Retomá tus ejercicios principales con las cargas de siempre. Si pasaron más de dos semanas, hacé la primera semana con cargas 5–10 % más bajas.'},
+grasa:{t:'Perder grasa manteniendo músculo',d:'Mantener intensidad; el volumen secundario puede bajar.',dose:'2–3 series exigentes, sin bajar la carga',back:'Retomá tu planificación habitual sin “quemar” con sesiones extra. Mantener las cargas es la señal clave para conservar el músculo.'},
+const_:{t:'Mantenerme constante',d:'Sostener el hábito con sesiones simples y realistas.',dose:'2 series por ejercicio principal',back:'Volvé a tu semana habitual en el próximo día que te toque, sin compensar lo perdido.'}};
+let S={step:0,days:[0,1,2].map(()=>blank()),obj:'',avail:2,mins:45,lost:0,err:''};
+function blank(){return{name:'',dow:'',groups:[],ex:[],dur:''}}
+try{const s=sessionStorage.getItem('planb');if(s)S=Object.assign(S,JSON.parse(s))}catch(e){}
+const save=()=>{try{sessionStorage.setItem('planb',JSON.stringify(S))}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nm=(d,i)=>d.name.trim()||('Sesión '+(i+1));
+const valid=d=>d.groups.length||d.ex.some(e=>e.n.trim());
+function R(top){document.getElementById('app').innerHTML=[v0,v1,v2,v3,v4][S.step]();save();if(top)window.scrollTo(0,0)}
+function go(n){S.err='';if(n>S.step){if(S.step==1&&!S.days.some(valid))S.err='Agregá al menos un grupo muscular o ejercicio en una sesión.';if(S.step==2&&!S.obj)S.err='Elegí tu objetivo principal.';if(S.err)return R()}S.step=n;if(n==3){S.avail=Math.min(S.avail,Math.max(1,S.days.filter(valid).length-1));if(S.lost>=S.days.length)S.lost=0}R(1)}
+const prog=()=>`<div class="brand"><i></i>Tu Plan B</div><div class="pl">Paso ${S.step} de 3</div><div class="bar"><b style="width:${S.step/3*100}%"></b></div>`;
+const nav=(nx,lb)=>`${S.err?`<div class="err">${S.err}</div>`:''}<div class="nav"><button class="ghost" onclick="go(${S.step-1})">← Atrás</button><button class="btn" onclick="go(${S.step+1})">${lb||'SIGUIENTE →'}</button></div>`;
+function v0(){return`<div class="brand"><i></i>Juan Manuel Solís · Método HYB</div><h1>TU PLAN <em>B</em></h1><p class="sub">Una herramienta para cuando se te complica en la semana o para cuando tu semana se complica</p>
+<p class="m" style="margin-bottom:6px">Adaptá la rutina que ya tenés, sin improvisar.</p>
+<div class="wv"><div class="wh"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+<div class="cap"><span class="n">1</span>Tu semana habitual</div><div class="wr"><div class="a">1</div><div class="a">2</div><div class=""></div><div class="a">3</div><div class="a">4</div><div class="a">5</div><div class=""></div></div>
+<div class="cap"><span class="n">2</span>Menos días: combinás sesiones</div><div class="wr"><div class="a">1+2</div><div class=""></div><div class="a">3+4</div><div class=""></div><div class="a">5</div><div class=""></div><div class=""></div></div>
+<div class="cap"><span class="n">3</span>Perdés una: lo clave pasa a otra sesión</div><div class="wr"><div class="a">1</div><div class="a">2</div><div class=""></div><div class="x">3</div><div class="k">4+3</div><div class="a">5</div><div class=""></div></div></div>
+<button class="btn" style="width:100%;font-size:17px;padding:17px" onclick="go(1)">CREAR MI PLAN B</button><p class="m" style="text-align:center;font-size:13px;margin-top:12px">Sin cuenta · Sin correo · No es una rutina nueva</p>`}
+function setN(n){while(S.days.length<n)S.days.push(blank());S.days.length=n;R()}
+const card=(d,i)=>`<section class="card"><div class="hd"><b>Sesión ${i+1}</b><span><button class="ic" onclick="mv(${i},-1)">↑</button><button class="ic" onclick="mv(${i},1)">↓</button><button class="ic" onclick="dup(${i})">Duplicar</button><button class="ic" onclick="del(${i})">Eliminar</button></span></div>
+<input placeholder="Nombre (ej. Pecho y tríceps)" value="${esc(d.name)}" oninput="S.days[${i}].name=this.value;save()">
+<div class="sm">Día de la semana (opcional; los demás días cuentan como descanso)</div><select onchange="S.days[${i}].dow=this.value;save()"><option value="">Sin asignar</option>${DN.map((n,k)=>`<option value="${k}" ${d.dow===String(k)?'selected':''}>${n}</option>`).join('')}</select>
+<div class="sm">Grupos musculares</div><div class="row">${[...new Set([...GR,...d.groups])].map(g=>`<button class="chip ${d.groups.includes(g)?'on':''}" onclick="tg(${i},'${esc(g).replace(/'/g,'')}')">${esc(g)}</button>`).join('')}</div>
+<div class="ex" style="grid-template-columns:1fr auto"><input id="cg${i}" placeholder="Otro grupo (personalizado)"><button class="ic" onclick="cg(${i})">Añadir</button></div>
+<div class="sm">Ejercicios (opcional) · series habituales (opcional)</div>${d.ex.map((e,j)=>`<div class="ex"><input placeholder="Ej. Press de banca" value="${esc(e.n)}" oninput="S.days[${i}].ex[${j}].n=this.value;save()"><input inputmode="numeric" placeholder="Series" value="${esc(e.s)}" oninput="S.days[${i}].ex[${j}].s=this.value;save()"><button class="ic" onclick="rx(${i},${j})">✕</button></div>`).join('')}
+<button class="ghost" style="padding:8px 12px;font-size:14px" onclick="ax(${i})">+ Ejercicio</button>
+<div class="sm">Duración habitual en minutos (opcional)</div><input inputmode="numeric" value="${esc(d.dur)}" oninput="S.days[${i}].dur=this.value;save()"></section>`;
+function v1(){return`${prog()}<h2>Configurá tu semana habitual</h2><p class="m">Cargá lo que sepas. Si solo conocés los grupos musculares, alcanza.</p><label class="l">¿Cuántos días entrenás habitualmente por semana?</label><div class="row">${[1,2,3,4,5,6,7].map(n=>`<button class="pill ${S.days.length==n?'on':''}" onclick="setN(${n})">${n}</button>`).join('')}</div>${S.days.map(card).join('')}<button class="ghost" onclick="S.days.push(blank());R()">+ Agregar sesión</button>${nav()}`}
+function tg(i,g){const a=S.days[i].groups,k=a.indexOf(g);k<0?a.push(g):a.splice(k,1);R()}
+function cg(i){const v=document.getElementById('cg'+i).value.trim();if(v&&!S.days[i].groups.includes(v))S.days[i].groups.push(v);R()}
+const ax=i=>{S.days[i].ex.push({n:'',s:''});R()},rx=(i,j)=>{S.days[i].ex.splice(j,1);R()};
+const mv=(i,d)=>{const j=i+d;if(j<0||j>=S.days.length)return;[S.days[i],S.days[j]]=[S.days[j],S.days[i]];R()};
+const dup=i=>{S.days.splice(i+1,0,JSON.parse(JSON.stringify(S.days[i])));R()},del=i=>{if(S.days.length>1){S.days.splice(i,1);R()}};
+function v2(){return`${prog()}<h2>Definí tu objetivo</h2><p class="m">Define qué prioridades conviene proteger cuando hay poco tiempo.</p><label class="l">¿Cuál es tu objetivo principal?</label>${Object.entries(OB).map(([k,o])=>`<button class="opt ${S.obj==k?'on':''}" onclick="S.obj='${k}';R()"><b>${o.t}</b><span>${o.d}</span></button>`).join('')}${nav()}`}
+function v3(){const n=S.days.filter(valid).length;return`${prog()}<h2>Tu disponibilidad real</h2><p class="m">Pensá en una semana complicada, no en la ideal.</p>
+<label class="l">¿Cuántos días podrías entrenar en una semana complicada?</label><div class="row">${Array.from({length:Math.max(1,n-1)},(_, k)=>k+1).map(k=>`<button class="pill ${S.avail==k?'on':''}" onclick="S.avail=${k};R()">${k}</button>`).join('')}</div>
+<label class="l">¿Cuánto tiempo tenés por sesión?</label><div class="row">${[20,30,45,60].map(m=>`<button class="pill ${S.mins==m?'on':''}" onclick="S.mins=${m};R()">${m} min</button>`).join('')}</div>
+<label class="l">¿Qué sesión perdiste o te preocupa perder?</label><select onchange="S.lost=+this.value;save()">${S.days.map((d,i)=>valid(d)?`<option value="${i}" ${S.lost==i?'selected':''}>${esc(nm(d,i))}</option>`:'').join('')}</select>${nav(0,'VER MI PLAN B')}`}
+const items=d=>{const ex=d.ex.filter(e=>e.n.trim());return ex.length?ex.slice(0,2).map(e=>e.n.trim()):d.groups.map(g=>'1 ejercicio principal de '+g.toLowerCase())};
+const OX={masa:['2–3','RIR 0–2'],fuerza:['3','RIR 1–3'],grasa:['2–3','Misma carga'],const_:['2','RIR 2–3']};
+function v4(){
+const o=OB[S.obj]||OB.masa,x=OX[S.obj]||OX.masa,ss=S.days.map((d,i)=>({d,i})).filter(a=>valid(a.d)),freq={};
+ss.forEach(a=>a.d.groups.forEach(g=>freq[g]=(freq[g]||0)+1));
+const k=Math.min(S.avail,ss.length),cap=Math.max(3,Math.floor(S.mins/9)),bk=Array.from({length:k},()=>[]);
+ss.forEach((a,i)=>bk[Math.floor(i*k/ss.length)].push(a));
+const tags=(a,c)=>`<div class="tags">${a.map(t=>`<span class="tg ${c||''}">${esc(t)}</span>`).join('')}</div>`;
+const sec=(n,t)=>`<div class="sec"><i>${n}</i><h3>${t}</h3></div>`;
+const sc=(si,st,hl)=>`<div class="sc ${hl?'hl':''}"><div class="si"><em>SI</em><span style="display:flex;flex:1;gap:8px;align-items:center">${si}</span></div><div class="th"><ol>${st.map(s=>`<li><div>${s}</div></li>`).join('')}</ol></div></div>`;
+const uq=a=>a.d.groups.filter(g=>freq[g]==1);
+const lostS=ss.find(a=>a.i==S.lost)||ss[0];
+const habit=ss.map((a,n)=>`<div class="pr"><div><b>${n+1}. ${esc(nm(a.d,a.i))}</b>${a.d.dow!==''?`<span class="m"> · ${DN[a.d.dow]}</span>`:''}${a.d.dur?`<span class="m"> · ${esc(a.d.dur)} min</span>`:''}</div>${tags(a.d.groups)}</div>`).join('');
+const prot=ss.map(a=>{const u=uq(a);return`<div class="pr"><div><b>${esc(nm(a.d,a.i))}</b> ${u.length?'<span class="tag">PRIORIDAD ALTA</span>':''}</div>${tags(items(a.d),'y')}${u.length?`<span class="m" style="font-size:13px;margin:0">Único día de ${esc(u.join(', '))}</span>`:''}</div>`}).join('');
+let sA;if(k>=ss.length)sA=sc(`Podés entrenar ${k} día${k>1?'s':''} o más`,['Tu semana habitual entra completa: <b>no cambies nada</b>.']);else{let cutT=0;const st=bk.map((b,bi)=>{const l=b.map(a=>items(a.d)),out=[];let cut=0;for(let r=0;r<4;r++)l.forEach(arr=>{if(arr[r]){out.length<cap?out.push(arr[r]):cut++}});cutT+=cut;return`<b>Día ${bi+1}: ${esc(b.map(a=>nm(a.d,a.i)).join(' + '))}</b>${tags([...new Set(out)],'y')}`});if(cutT)st.push(`Quedan fuera ${cutT} ejercicio(s): son los menos prioritarios.`);sA=sc(`Solo podés entrenar <b>${k} día${k>1?'s':''}</b> · ${S.mins} min`,st)}
+const ord=[lostS,...ss.filter(a=>a!==lostS)];
+const sB=ord.map(a=>{const u=uq(a),ix=ss.indexOf(a),nx=ss.length>1?ss[(ix+1)%ss.length]:null,st=[];
+if(u.length){st.push(`Es tu único día de <b>${esc(u.join(', '))}</b>: protegelo.`);if(nx)st.push(`Sumá <b>${esc(items(a.d).join(' y '))}</b> (2 series) al final de “${esc(nm(nx.d,nx.i))}”.`);st.push(`Si no hay tiempo: sesión corta de ${Math.min(S.mins,40)} min solo con eso.`)}
+else{st.push(`${esc(a.d.groups.join(', '))} ya se entrena en otra sesión de tu semana.`);st.push('<b>Soltala</b> y seguí con tu próxima sesión.')}
+st.push('No dobles series ni sumes sesiones extra.');
+return sc(`Perdés “${esc(nm(a.d,a.i))}”${a===lostS?'<em style="margin-left:auto">TU CASO</em>':''}`,st,a===lostS)}).join('');
+const sC=sc('Llegás con <b>poco tiempo</b> a una sesión',['Hacé primero los <b>ejercicios clave</b> (los de la sección 2).','Bajá a '+x[0]+' series por ejercicio.','Si te sobra tiempo, sumá el resto.']);
+const sD=sc('Perdés <b>2 o más sesiones</b> en la semana',['Pasá a tu <b>semana mínima</b> (arriba).','Protegé primero los grupos de prioridad alta.','No recuperes: la semana siguiente volvés a lo habitual.']);
+const sE=sc('Pasó <b>una semana o más</b> sin entrenar',['Retomá en la sesión que te toca, <b>no en la que perdiste</b>.','Si pasaron más de 2 semanas: 1 serie menos por ejercicio y 5–10 % menos de carga la primera semana.','No compenses con series extra.']);
+const lb=t=>`<div class="sm" style="text-transform:uppercase;letter-spacing:.06em">${t}</div>`;
+return`<div class="brand"><i></i>Tu Plan B</div><h2>Tu Plan B está listo</h2><div id="res"><div class="brand"><i></i>Tu Plan B · Método HYB · Juan Manuel Solís</div><h2 style="margin-top:14px">${esc(o.t)}</h2>
+<div class="stats"><div class="st"><b>${ss.length}</b><span>sesiones habituales</span></div><div class="st"><b>${k}</b><span>días en semana complicada</span></div><div class="st"><b>${S.mins}</b><span>min por sesión</span></div></div>
+${sec(1,'Tu semana habitual')}${habit}${sec(2,'Qué proteger primero')}${prot}
+${sec(3,'Tu dosis mínima')}<div class="stats"><div class="st"><b>1</b><span>ejercicio principal por grupo</span></div><div class="st"><b>${x[0]}</b><span>series</span></div><div class="st"><b style="font-size:17px;padding:4px 0">${x[1]}</b><span>intensidad</span></div></div>
+${sec(4,'Si pasa esto, hacé esto')}${lb('Menos días disponibles')}${sA}${lb('Perdés una sesión')}${sB}${lb('Poco tiempo')}${sC}${lb('Varias sesiones o semanas')}${sD}${sE}
+<div class="foot">Propuesta orientativa. No reemplaza la guía individual de un profesional.</div></div>
+<div class="row" style="margin-top:16px"><button class="btn" onclick="ex('png')">DESCARGAR IMAGEN</button><button class="btn" onclick="ex('pdf')">EXPORTAR PDF</button><button class="ghost" onclick="ex('share')">GUARDAR EN EL CELULAR</button></div><div class="nav"><button class="ghost" onclick="go(3)">← Modificar respuestas</button><button class="ghost" onclick="S.step=0;R(1)">Inicio</button></div>`}
+R();
+</script></body></html>
